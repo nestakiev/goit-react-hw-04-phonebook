@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
-import { P, Li, DelButton } from "./ContactList.styled";
+import { ContactListItem } from "components/ContactListItem/ContactListItem";
 
 export const ContactList = ({contacts, onDelete}) => {
     const isContactsEmpty = contacts.length > 0;
     return (
     isContactsEmpty ? 
-    <ul>{contacts.map(a => <Li key={a.id}>
-        <P>{a.name}: {a.number}</P>
-        <DelButton type="button" key={a.id} onClick={() => onDelete(a.id)}>Delete</DelButton> 
-        </Li>)}
+    <ul>
+        { contacts.map( contact => { 
+        const {id, name, number} = contact;
+        return <ContactListItem key={id} id={id} name={name} number={number} onDelete={onDelete}/>;})
+        }
     </ul>
     : <p>You dont have any contacts or matches</p>
     
